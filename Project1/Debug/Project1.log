@@ -1,0 +1,11 @@
+﻿  main.cpp
+main.cpp(17): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+main.cpp(23): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+main.cpp(25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+main.cpp(27): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+main.cpp(29): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+main.cpp(36): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+main.cpp(38): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+main.cpp(40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+main.cpp(42): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Project1.vcxproj -> c:\users\b5005129\visual studio 2017\Projects\8501Coursework\Debug\Project1.exe
