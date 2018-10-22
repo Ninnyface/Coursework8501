@@ -13,9 +13,15 @@ int main() {
 	s->setUHF();
 	s->setLHF();
 	s->setPHF();
-	
-	s->createLocks();
 
+	int x;
+	cout << "Enter a number to continue." << "\n";
+	cin >> x;
+
+	s->createLocks();
+	s->printSafe();
+
+	cin >> x;
 
 	s->deleteLocks();
 	delete s;

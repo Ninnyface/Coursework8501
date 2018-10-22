@@ -5,7 +5,7 @@ public:
 	Vector4(void) {
 		x = y = z = w = 1.0f;
 	}
-	Vector4(float x, float y, float z, float w) {
+	Vector4(int x, int y, int z, int w) {
 		this->x = x;
 		this->y = y;
 		this->z = z;
@@ -14,9 +14,9 @@ public:
 
 	~Vector4(void){}
 
-	float x;
-	float y;
-	float z;
-	float w;
+	int x;
+	int y;
+	int z;
+	int w;
 };
 

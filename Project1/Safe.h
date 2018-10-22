@@ -24,6 +24,7 @@ public:
 	void setPHF();
 	void createLocks();
 	void deleteLocks();
+	void printSafe();
 
 private:
 	int nOfLocks;
