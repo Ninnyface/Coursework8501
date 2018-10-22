@@ -1,60 +1,25 @@
 #include <iostream>
 #include <string>
 #include "Vector4.h"
+#include "Safe.h"
 
 using namespace std;
 
 int main() {
 	
-	int x;
-	cout << "Please enter the 4 digit root value: " << "\n";
-	cin >> x;
+	Safe* s = new Safe();
 	
-	//Integer magic
-	Vector4 root = Vector4(x / 1000, 
-						(x - ((x / 1000) * 1000)) / 100, 
-						(x - ((x / 1000) * 1000) - ((x - ((x / 1000) * 1000)) / 100) * 100) / 10, 
-						(x - ((x / 1000) * 1000) - ((x - ((x / 1000) * 1000)) / 100) * 100) - ((x - ((x / 1000) * 1000) - ((x - ((x / 1000) * 1000)) / 100) * 100) / 10) * 10);
-	cout << root.x << " " << root.y << " " << root.z << " " <<  root.w <<"\n";
+	s->setRoot();
+	s->setUHF();
+	s->setLHF();
+	s->setPHF();
 	
-	Vector4 UHF;
-	cout << "Please enter the 4 digits of the unlock hash function (UHF) individually: " << "\n";
-	cin >> x;
-	UHF.x = x;
-	cin >> x;
-	UHF.y = x;
-	cin >> x;
-	UHF.z = x;
-	cin >> x;
-	UHF.w = x;
+	s->createLocks();
 
-	cout << UHF.x << " " << UHF.y << " " << UHF.z << " " << UHF.w << "\n";
 
-	Vector4 LHF;
-	cout << "Please enter the 4 digits of the lock hash function (LHF) individually: " << "\n";
-	cin >> x;
-	LHF.x = x;
-	cin >> x;
-	LHF.y = x;
-	cin >> x;
-	LHF.z = x;
-	cin >> x;
-	LHF.w = x;
+	s->deleteLocks();
+	delete s;
+	s = NULL;
 
-	cout << LHF.x << " " << LHF.y << " " << LHF.z << " " << LHF.w << "\n";
-
-	Vector4 PHF;
-	cout << "Please enter the 4 digits of the pass hash function (PHF) individually: " << "\n";
-	cin >> x;
-	LHF.x = x;
-	cin >> x;
-	LHF.y = x;
-	cin >> x;
-	LHF.z = x;
-	cin >> x;
-	LHF.w = x;
-
-	cout << LHF.x << " " << LHF.y << " " << LHF.z << " " << LHF.w << "\n";
-
-	cin >> x;
+	return 0;
 }
