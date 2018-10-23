@@ -12,6 +12,17 @@ public:
 		hashNumber = Vector4((lockNumber.x + PHF.x + 10) % 10, (lockNumber.y + PHF.y + 10) % 10, (lockNumber.z + PHF.z + 10) % 10, (lockNumber.w + PHF.w + 10) % 10);
 	};
 	
+	bool repeatingNumbers() {
+		for (int i = 0; i < 4; i++) {
+			for (int j = i + 1; j < 4; j++) {
+				if (combinationNumber.at(i) == combinationNumber.at(j)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	};
+
 	Vector4 getCombinationNumber() { return combinationNumber; }
 	Vector4 getLockNumber() { return lockNumber; }
 	Vector4 getHashNumber() { return hashNumber; }

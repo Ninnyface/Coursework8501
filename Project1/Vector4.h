@@ -14,6 +14,15 @@ public:
 
 	~Vector4(void){}
 
+	int at(int i) {
+		switch (i) {
+		case 0: return x;
+		case 1: return y;
+		case 2: return z;
+		case 3: return w;
+		}
+	}
+
 	int x;
 	int y;
 	int z;

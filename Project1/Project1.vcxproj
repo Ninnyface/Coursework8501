@@ -129,6 +129,7 @@
     <ClCompile Include="Safe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IO.h" />
     <ClInclude Include="Lock.h" />
     <ClInclude Include="Safe.h" />
     <ClInclude Include="Vector4.h" />

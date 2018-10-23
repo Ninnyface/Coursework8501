@@ -4,7 +4,7 @@ void Safe::setRoot() {
 	
 	/* RANDOM GENERATION */
 	root = Vector4(rand() % 10, rand() % 10, rand() % 10, rand() % 10);
-	cout << "Root number is: " << root.x << root.y << root.z << root.w << "\n";
+	//cout << "Root number is: " << root.x << root.y << root.z << root.w << "\n";
 	
 	/* MANUAL GENERATION */
 	/*int x;
@@ -23,7 +23,7 @@ void Safe::setUHF() {
 
 	/* RANDOM GENERATION */
 	UHF = Vector4(rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9);
-	cout << "UHF is: " << UHF.x << UHF.y << UHF.z << UHF.w << "\n";
+	//cout << "UHF is: " << UHF.x << ","  << UHF.y << "," << UHF.z << "," << UHF.w << "\n";
 
 	/* MANUAL GENERATION */
 	/*int x;
@@ -42,7 +42,7 @@ void Safe::setLHF() {
 
 	/* RANDOM GENERATION */
 	LHF = Vector4(rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9);
-	cout << "LHF is: " << LHF.x << LHF.y << LHF.z << LHF.w << "\n";
+	//cout << "LHF is: " <<  LHF.x << ","  << LHF.y << ","  << LHF.z << ","  << LHF.w << "\n";
 	
 	/* MANUAL GENERATION */
 	/*int x;
@@ -61,7 +61,7 @@ void Safe::setPHF() {
 
 	/* RANDOM GENERATION */
 	PHF = Vector4(rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9);
-	cout << "PHF is: " << PHF.x << PHF.y << PHF.z << PHF.w << "\n";
+	//cout << "PHF is: "  << PHF.x << "," << PHF.y << ","  << PHF.z << ","  << PHF.w << "\n";
 	
 	/* MANUAL GENERATION */
 	/*int x;
@@ -100,9 +100,40 @@ void Safe::deleteLocks() {
 }
 
 void Safe::printSafe() {
-	for (int i = 0; i < nOfLocks; i++) {
-		cout << "CN" << i << " " << locks.at(i)->getCombinationNumber().x << locks.at(i)->getCombinationNumber().y << locks.at(i)->getCombinationNumber().z << locks.at(i)->getCombinationNumber().w;
-		cout << ", LN" << i << " " << locks.at(i)->getLockNumber().x << locks.at(i)->getLockNumber().y << locks.at(i)->getLockNumber().z << locks.at(i)->getLockNumber().w;
-		cout << ", HN" << i << " " << locks.at(i)->getHashNumber().x << locks.at(i)->getHashNumber().y << locks.at(i)->getHashNumber().z << locks.at(i)->getHashNumber().w << "\n";
+	cout << "ROOT " << root.x << root.y << root.z << root.w << "\n";
+	cout << "UHF " << UHF.x << "," << UHF.y << "," << UHF.z << "," << UHF.w << "\n";
+	cout << "LHF " << LHF.x << "," << LHF.y << "," << LHF.z << "," << LHF.w << "\n";
+	cout << "PHF " << PHF.x << "," << PHF.y << "," << PHF.z << "," << PHF.w << "\n";
+}
+
+void Safe::printSafeKey(ofstream* file) {
+
+	*file << "ROOT " << root.x << root.y << root.z << root.w << "\n";
+	*file << "UHF " << UHF.x << "," << UHF.y << "," << UHF.z << "," << UHF.w << "\n";
+	*file << "LHF " << LHF.x << "," << LHF.y << "," << LHF.z << "," << LHF.w << "\n";
+	*file << "PHF " << PHF.x << "," << PHF.y << "," << PHF.z << "," << PHF.w << "\n";
+	
+}
+
+void Safe::printMultiSafe(ofstream* file, int safeNumber) {
+	if (this->validSafe()) {
+		*file << "NS" << safeNumber << " VALID" << "\n";
 	}
+	else {
+		*file << "NS" << safeNumber << " NOT VALID" << "\n";
+	}
+	for (int i = 0; i < nOfLocks; i++) {
+		*file << "CN" << i << " " << locks.at(i)->getCombinationNumber().x << locks.at(i)->getCombinationNumber().y << locks.at(i)->getCombinationNumber().z << locks.at(i)->getCombinationNumber().w;
+		*file << ", LN" << i << " " << locks.at(i)->getLockNumber().x << locks.at(i)->getLockNumber().y << locks.at(i)->getLockNumber().z << locks.at(i)->getLockNumber().w;
+		*file << ", HN" << i << " " << locks.at(i)->getHashNumber().x << locks.at(i)->getHashNumber().y << locks.at(i)->getHashNumber().z << locks.at(i)->getHashNumber().w << "\n";
+	}
+}
+
+bool Safe::validSafe() {
+	for (int i = 0; i < nOfLocks; i++) {
+		if (locks.at(i)->repeatingNumbers()) {
+			return false;
+		}
+	}
+	return true;
 }

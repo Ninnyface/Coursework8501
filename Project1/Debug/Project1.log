@@ -1,3 +1,4 @@
-﻿  Safe.cpp
+﻿  main.cpp
 c:\users\b5005129\github\coursework8501\project1\Vector4.h(6): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Project1.vcxproj -> c:\users\b5005129\visual studio 2017\Projects\8501Coursework\Debug\Project1.exe
+main.cpp(12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Project1.vcxproj -> C:\Users\b5005129\visual studio 2017\Projects\8501Coursework\Debug\Project1.exe

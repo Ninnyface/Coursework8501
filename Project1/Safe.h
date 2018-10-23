@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
+#include <fstream>
 #include "Vector4.h"
 #include "Lock.h"
 
@@ -25,6 +26,9 @@ public:
 	void createLocks();
 	void deleteLocks();
 	void printSafe();
+	void printSafeKey(ofstream* file);
+	void printMultiSafe(ofstream* file, int safeNumber);
+	bool validSafe();
 
 private:
 	int nOfLocks;
