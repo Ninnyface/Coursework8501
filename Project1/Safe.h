@@ -20,9 +20,13 @@ public:
 	~Safe(void) {};
 
 	void setRoot();
+	void setRoot(int x, int y, int z, int w);
 	void setUHF();
+	void setUHF(int x, int y, int z, int w);
 	void setLHF();
+	void setLHF(int x, int y, int z, int w);
 	void setPHF();
+	void setPHF(int x, int y, int z, int w);
 	void createLocks();
 	void deleteLocks();
 	void printSafe();

@@ -10,14 +10,15 @@ using namespace std;
 int main() {
 	
 	srand(time(NULL));
-	int safesCreated = 0;
+	//int safesCreated = 0;
+	int validSolutions = 0;
 	IO* iO = new IO();
 	
 	int solutions;
 	cout << "How many solutions would you like?" << "\n";
 	cin >> solutions;
 
-	while (safesCreated < solutions) {
+	while (validSolutions < solutions) {
 		Safe* s = new Safe();
 		s->setRoot();
 		s->setUHF();
@@ -25,7 +26,11 @@ int main() {
 		s->setPHF();
 		s->createLocks();	
 		iO->writeKeyFile(s);
-		safesCreated++;
+		if (s->validSafe()) {
+			validSolutions++;
+		}
+		
+		//safesCreated++;
 		s->deleteLocks();
 		delete s;
 		s = NULL;
@@ -37,7 +42,12 @@ int main() {
 	safes = iO->readKeyFile();
 	for (int i = 0; i < safes.size(); i++) {
 		iO->writeMultiSafeFile(safes.at(i), i);
+		safes.at(i)->deleteLocks();
+		delete safes.at(i);
+		safes.at(i) = NULL;
 	}
+
+	safes.clear();
 
 	delete iO;
 	iO = NULL;

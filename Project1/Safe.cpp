@@ -1,79 +1,35 @@
 #include "Safe.h"
 
 void Safe::setRoot() {
-	
-	/* RANDOM GENERATION */
 	root = Vector4(rand() % 10, rand() % 10, rand() % 10, rand() % 10);
-	//cout << "Root number is: " << root.x << root.y << root.z << root.w << "\n";
-	
-	/* MANUAL GENERATION */
-	/*int x;
-	cout << "Please enter the 4 digit root value: " << "\n";
-	cin >> x;
+}
 
-	//Integer magic
-	root = Vector4(x / 1000,
-		(x - ((x / 1000) * 1000)) / 100,
-		(x - ((x / 1000) * 1000) - ((x - ((x / 1000) * 1000)) / 100) * 100) / 10,
-		(x - ((x / 1000) * 1000) - ((x - ((x / 1000) * 1000)) / 100) * 100) - ((x - ((x / 1000) * 1000) - ((x - ((x / 1000) * 1000)) / 100) * 100) / 10) * 10);*/
-
+void Safe::setRoot(int x, int y, int z, int w) {
+	root = Vector4(x, y, z, w);
 }
 
 void Safe::setUHF() {
-
-	/* RANDOM GENERATION */
 	UHF = Vector4(rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9);
-	//cout << "UHF is: " << UHF.x << ","  << UHF.y << "," << UHF.z << "," << UHF.w << "\n";
+}
 
-	/* MANUAL GENERATION */
-	/*int x;
-	cout << "Please enter the 4 digits of the unlock hash function (UHF) individually: " << "\n";
-	cin >> x;
-	UHF.x = x;
-	cin >> x;
-	UHF.y = x;
-	cin >> x;
-	UHF.z = x;
-	cin >> x;
-	UHF.w = x;*/
+void Safe::setUHF(int x, int y, int z, int w) {
+	UHF = Vector4(x, y, z, w);
 }
 
 void Safe::setLHF() {
-
-	/* RANDOM GENERATION */
 	LHF = Vector4(rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9);
-	//cout << "LHF is: " <<  LHF.x << ","  << LHF.y << ","  << LHF.z << ","  << LHF.w << "\n";
-	
-	/* MANUAL GENERATION */
-	/*int x;
-	cout << "Please enter the 4 digits of the lock hash function (LHF) individually: " << "\n";
-	cin >> x;
-	LHF.x = x;
-	cin >> x;
-	LHF.y = x;
-	cin >> x;
-	LHF.z = x;
-	cin >> x;
-	LHF.w = x;*/
+}
+
+void Safe::setLHF(int x, int y, int z, int w) {
+	LHF = Vector4(x, y, z, w);
 }
 
 void Safe::setPHF() {
-
-	/* RANDOM GENERATION */
 	PHF = Vector4(rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9);
-	//cout << "PHF is: "  << PHF.x << "," << PHF.y << ","  << PHF.z << ","  << PHF.w << "\n";
-	
-	/* MANUAL GENERATION */
-	/*int x;
-	cout << "Please enter the 4 digits of the pass hash function (PHF) individually: " << "\n";
-	cin >> x;
-	PHF.x = x;
-	cin >> x;
-	PHF.y = x;
-	cin >> x;
-	PHF.z = x;
-	cin >> x;
-	PHF.w = x;*/
+}
+
+void Safe::setPHF(int x, int y, int z, int w) {
+	PHF = Vector4(x, y, z, w);
 }
 
 void Safe::createLocks() {
@@ -130,10 +86,31 @@ void Safe::printMultiSafe(ofstream* file, int safeNumber) {
 }
 
 bool Safe::validSafe() {
+	//int sum = 0;
 	for (int i = 0; i < nOfLocks; i++) {
 		if (locks.at(i)->repeatingNumbers()) {
 			return false;
 		}
+		//sum += locks.at(i)->sumCombination();
+
+		//if (i > 0) {
+		//	if (locks.at(i)->sumCombination() < locks.at(i - 1)->sumCombination()) {
+		//		cout << "sum is lower on the right" << "\n";
+		//		for (int j = 0; j < nOfLocks; j++) {
+		//			cout << "CN" << j << " " << locks.at(j)->getCombinationNumber().x << locks.at(j)->getCombinationNumber().y << locks.at(j)->getCombinationNumber().z << locks.at(j)->getCombinationNumber().w << "\n";
+		//		}
+		//		return false;
+		//	}
+		//}
 	}
+	
+	//if (sum % 2 != 0) {
+	//	cout << "odd" << "\n";
+	//	for (int i = 0; i < nOfLocks; i++) {
+	//		cout << "CN" << i << " " << locks.at(i)->getCombinationNumber().x << locks.at(i)->getCombinationNumber().y << locks.at(i)->getCombinationNumber().z << locks.at(i)->getCombinationNumber().w;
+	//	}
+	//	return false;
+	//}
+
 	return true;
 }

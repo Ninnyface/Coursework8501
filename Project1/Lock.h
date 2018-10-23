@@ -23,6 +23,10 @@ public:
 		return false;
 	};
 
+	int sumCombination() {
+		return combinationNumber.x + combinationNumber.y + combinationNumber.z + combinationNumber.w;
+	}
+
 	Vector4 getCombinationNumber() { return combinationNumber; }
 	Vector4 getLockNumber() { return lockNumber; }
 	Vector4 getHashNumber() { return hashNumber; }
