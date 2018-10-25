@@ -4,6 +4,7 @@
 #include "IO.h"
 #include "Vector4.h"
 #include "Safe.h"
+#include "HashCalculator.h"
 
 using namespace std;
 
@@ -16,6 +17,7 @@ int main() {
 	//bool validOnly = false;
 	int solutions;
 	char answer;
+
 	cout << "How many locked safes would you like?" << "\n";
 	while (!validInput) {
 		cin >> solutions;
@@ -63,48 +65,86 @@ int main() {
 	}
 	validInput = false;
 
-	cout << "Creating locked safe file..." << "\n";
-	while (validSolutions < solutions) {
+	Vector4 UHF;
+	Vector4 LHF;
+	Vector4 PHF;
+
+	while (validSolutions < 1) {
 		Safe* s = new Safe();
 		s->setRoot();
+
 		s->setUHF();
+		UHF = s->getUHF();
 		s->setLHF();
+		LHF = s->getLHF();
 		s->setPHF();
+		PHF = s->getPHF();
 		s->createLocks();
 		s->setMultiSafe(multiSafe);
-		//if (!validOnly) {
-		//	iO->writeKeyFile(s);
-		//	if (s->validSafe()) {
-		//		validSolutions++;
-		//	}
-		//}
-		//else {
+		
 		if (s->validSafe()) {
 			iO->writeLockedSafeFile(s);
 			validSolutions++;
 		}
-		//}
+		
 		s->deleteLocks();
 		delete s;
 		s = NULL;
 	}
-	
-	cout << "Locked safe file created." << "\n";
-	cout << "Creating multi-safe file..." << "\n";
 
-	vector<Safe*> safes;
-	safes = iO->readKeyFile();
-	for (int i = 0; i < safes.size(); i++) {
-		safes.at(i)->setMultiSafe(multiSafe);
-		iO->writeMultiSafeFile(safes.at(i), i);
-
-		safes.at(i)->deleteLocks();
-		delete safes.at(i);
-		safes.at(i) = NULL;
+	cout << "Creating locked safe file..." << "\n";
+	while (validSolutions < solutions) {
+		Safe* s = new Safe();
+		s->setRoot();
+		s->setUHF(UHF);
+		s->setLHF(LHF);
+		s->setPHF(PHF);
+		s->createLocks();
+		s->setMultiSafe(multiSafe);
+		
+		if (s->validSafe()) {
+			iO->writeLockedSafeFile(s);
+			validSolutions++;
+		}
+		
+		s->deleteLocks();
+		delete s;
+		s = NULL;
 	}
 
-	cout << "Multi-safe file created. Please enter any key to finish." << "\n";
-	safes.clear();
+
+
+	HashCalculator* h = new HashCalculator();
+	
+	vector<Vector4> hashes;
+	cout << "Locked safe file created." << "\n";
+	vector<vector<Vector4>> safes;
+	safes = iO->readLockedFile();
+	for (int i = 0; i < safes.size(); i++) {
+		hashes = h->calculateHashes(safes.at(i));
+		for (int j = 0; j < hashes.size(); j++) {
+			cout << "UHF: " << hashes.at(j).x << hashes.at(j).y << hashes.at(j).z << hashes.at(j).w << "\n";
+			cout << "LHF: " << hashes.at(j).x << hashes.at(j).y << hashes.at(j).z << hashes.at(j).w << "\n";
+			cout << "PHF: " << hashes.at(j).x << hashes.at(j).y << hashes.at(j).z << hashes.at(j).w << "\n";
+		}
+	}
+
+	
+	//cout << "Creating multi-safe file..." << "\n";
+
+	//vector<Safe*> safes;
+	//safes = iO->readKeyFile();
+	//for (int i = 0; i < safes.size(); i++) {
+	//	safes.at(i)->setMultiSafe(multiSafe);
+	//	iO->writeMultiSafeFile(safes.at(i), i);
+
+	//	safes.at(i)->deleteLocks();
+	//	delete safes.at(i);
+	//	safes.at(i) = NULL;
+	//}
+
+	//cout << "Multi-safe file created. Please enter any key to finish." << "\n";
+	//safes.clear();
 
 	delete iO;
 	iO = NULL;

@@ -15,16 +15,45 @@ void IO::writeLockedSafeFile(Safe* s) {
 
 vector<vector<Vector4>> IO::readLockedFile() {
 	vector<vector<Vector4>> safes;
+	vector<Vector4> values;
 	string line;
-	getline(keyFileIn, line);
 	lockedFileIn.open(lockedFileName, ofstream::in);
+	getline(lockedFileIn, line);
 	if (lockedFileIn.is_open()) {
-		while (getline(keyFileIn, line)) {
-			vector<Vector4> values;
+		while (getline(lockedFileIn, line)) {
+			
 			string space = " ";
 			
 			int x, y, z, w;
 			int pos = 0;
+			
+			while (line.substr(0, 4) != "ROOT" && line.substr(0, 4) != "") {
+				pos = 0;
+				
+				string lockNumber = line.substr(5, line.length());
+				pos = lockNumber.find(space);
+				x = stoi(lockNumber.substr(0, pos));
+				lockNumber.erase(0, pos + space.length());
+				pos = lockNumber.find(space);
+				y = stoi(lockNumber.substr(0, pos));
+				lockNumber.erase(0, pos + space.length());
+				pos = lockNumber.find(space);
+				z = stoi(lockNumber.substr(0, pos));
+				lockNumber.erase(0, pos + space.length());
+				w = stoi(lockNumber);
+				values.push_back(Vector4(x, y, z, w));
+				getline(lockedFileIn, line);
+
+			}
+
+			if (!values.empty()) {
+				safes.push_back(values);
+				values.clear();
+			}
+
+			if (line == "") {
+				break;
+			}
 
 			string root = line.substr(6, line.length());
 			pos = root.find(space);
@@ -38,32 +67,15 @@ vector<vector<Vector4>> IO::readLockedFile() {
 			root.erase(0, pos + space.length());
 			pos = root.find(space);
 			w = stoi(root.substr(0, pos));
-			values.push_back(Vector4(x,y,z,w));
-			line = "";
-
-			while (line.substr(0, 4) != "ROOT") {
-				pos = 0;
-				getline(keyFileIn, line);
-				string lockNumber = line.substr(5, line.length());
-				pos = lockNumber.find(space);
-				x = stoi(lockNumber.substr(0, pos));
-				lockNumber.erase(0, pos + space.length());
-				pos = lockNumber.find(space);
-				y = stoi(lockNumber.substr(0, pos));
-				lockNumber.erase(0, pos + space.length());
-				pos = lockNumber.find(space);
-				z = stoi(lockNumber.substr(0, pos));
-				lockNumber.erase(0, pos + space.length());
-				pos = lockNumber.find(space);
-				w = stoi(lockNumber.substr(0, pos));
-				values.push_back(Vector4(x, y, z, w));
-			}
-
+			values.push_back(Vector4(x,y,z,w));		
+			
 		}
 	}
 	else {
 		cout << "Unable to access file: " << lockedFileName << "\n";
 	}
+
+	return safes;
 }
 
 //Method to write all information needed in the key file
@@ -90,7 +102,7 @@ vector<Safe*> IO::readKeyFile() {
 			Safe* s = new Safe();
 			string comma = ",";
 			string root = line.substr(5, 4);
-			s->setRoot(stoi(root.substr(0, 1)), stoi(root.substr(1, 1)), stoi(root.substr(2, 1)), stoi(root.substr(3, 1)));
+			s->setRoot(Vector4(stoi(root.substr(0, 1)), stoi(root.substr(1, 1)), stoi(root.substr(2, 1)), stoi(root.substr(3, 1))));
 			
 			int x, y, z, w;
 			int pos = 0;
@@ -108,7 +120,7 @@ vector<Safe*> IO::readKeyFile() {
 			UHF.erase(0, pos + comma.length());
 			pos = UHF.find(comma);
 			w = stoi(UHF.substr(0, pos));	
-			s->setUHF(x, y, z, w);
+			s->setUHF(Vector4(x, y, z, w));
 
 			pos = 0;
 			getline(keyFileIn, line);
@@ -124,7 +136,7 @@ vector<Safe*> IO::readKeyFile() {
 			LHF.erase(0, pos + comma.length());
 			pos = LHF.find(comma);
 			w = stoi(LHF.substr(0, pos));
-			s->setLHF(x, y, z, w);
+			s->setLHF(Vector4(x, y, z, w));
 			
 			pos = 0;
 			getline(keyFileIn, line);
@@ -140,7 +152,7 @@ vector<Safe*> IO::readKeyFile() {
 			PHF.erase(0, pos + comma.length());
 			pos = PHF.find(comma);
 			w = stoi(PHF.substr(0, pos));
-			s->setPHF(x, y, z, w);
+			s->setPHF(Vector4(x, y, z, w));
 			s->createLocks();
 
 			safes.push_back(s);

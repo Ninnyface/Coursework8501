@@ -125,12 +125,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HashCalculator.cpp" />
     <ClCompile Include="IO.cpp" />
     <ClCompile Include="Lock.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Safe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HashCalculator.h" />
     <ClInclude Include="IO.h" />
     <ClInclude Include="Lock.h" />
     <ClInclude Include="Safe.h" />

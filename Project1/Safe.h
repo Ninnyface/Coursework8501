@@ -19,14 +19,18 @@ public:
 
 	~Safe(void) {};
 
+	Vector4 getUHF() { return UHF; }
+	Vector4 getLHF() { return LHF; }
+	Vector4 getPHF() { return PHF; }
+
 	void setRoot();
-	void setRoot(int x, int y, int z, int w);
+	void setRoot(Vector4);
 	void setUHF();
-	void setUHF(int x, int y, int z, int w);
+	void setUHF(Vector4);
 	void setLHF();
-	void setLHF(int x, int y, int z, int w);
+	void setLHF(Vector4);
 	void setPHF();
-	void setPHF(int x, int y, int z, int w);
+	void setPHF(Vector4);
 	void setMultiSafe(bool multiSafe) { this->multiSafe = multiSafe; };
 	void createLocks();
 	void deleteLocks();

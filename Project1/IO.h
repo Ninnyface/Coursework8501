@@ -36,5 +36,5 @@ private:
 	ofstream multiSafeFile;
 	string multiSafeFileName = "multisafefile.txt";
 	ifstream keyFileIn;
-	ifstream lockedFileIn
+	ifstream lockedFileIn;
 };

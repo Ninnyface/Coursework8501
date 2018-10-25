@@ -5,32 +5,32 @@ void Safe::setRoot() {
 	root = Vector4(rand() % 10, rand() % 10, rand() % 10, rand() % 10);
 }
 
-void Safe::setRoot(int x, int y, int z, int w) {
-	root = Vector4(x, y, z, w);
+void Safe::setRoot(Vector4 root) {
+	this->root = root;
 }
 
 void Safe::setUHF() {
 	UHF = Vector4(rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9);
 }
 
-void Safe::setUHF(int x, int y, int z, int w) {
-	UHF = Vector4(x, y, z, w);
+void Safe::setUHF(Vector4 UHF) {
+	this->UHF = UHF;
 }
 
 void Safe::setLHF() {
 	LHF = Vector4(rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9);
 }
 
-void Safe::setLHF(int x, int y, int z, int w) {
-	LHF = Vector4(x, y, z, w);
+void Safe::setLHF(Vector4 LHF) {
+	this->LHF = LHF;
 }
 
 void Safe::setPHF() {
 	PHF = Vector4(rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9, rand() % 19 - 9);
 }
 
-void Safe::setPHF(int x, int y, int z, int w) {
-	PHF = Vector4(x, y, z, w);
+void Safe::setPHF(Vector4 PHF) {
+	this->PHF = PHF;
 }
 /*************************************************/
 
