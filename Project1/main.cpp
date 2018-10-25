@@ -17,7 +17,7 @@ int main() {
 	bool validInput = false;
 	int solutions;
 	char answer;
-	cout << "How many solutions would you like?" << "\n";
+	cout << "How many valid solutions would you like?" << "\n";
 	while (!validInput) {
 		cin >> solutions;
 		if (!cin.fail()) {
