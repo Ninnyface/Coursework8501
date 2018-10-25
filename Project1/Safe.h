@@ -32,10 +32,11 @@ public:
 	void printSafe();
 	void printSafeKey(ofstream* file);
 	void printMultiSafe(ofstream* file, int safeNumber);
-	bool validSafe();
+	bool validSafe(bool multiSafe);
 
 private:
 	int nOfLocks;
+	bool multiSafe;
 	Vector4 root;
 	Vector4 UHF;
 	Vector4 LHF;

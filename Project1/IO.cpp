@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//Method to write all information needed in the key file
 void IO::writeKeyFile(Safe* s) {
 
 	keyFile.open(keyFileName, std::ofstream::out | std::ofstream::app);
@@ -9,12 +10,14 @@ void IO::writeKeyFile(Safe* s) {
 	keyFile.close();
 }
 
+//Method to read in the key file and add all of the data stored inside to a vector of safes
 vector<Safe*> IO::readKeyFile() {
 	vector<Safe*> safes;
 	string line;
 	keyFileIn.open(keyFileName, std::ofstream::in);
 	if (keyFileIn.is_open()) {
 		while (getline(keyFileIn, line)) {
+			//As the structure of the key file is known, substrings can be obtained to retrieve the individual hash values
 			Safe* s = new Safe();
 			string comma = ",";
 			string root = line.substr(5, 4);
@@ -82,6 +85,7 @@ vector<Safe*> IO::readKeyFile() {
 	return safes;
 }
 
+//Method to validate solutions and write to the multi-safe file
 void IO::writeMultiSafeFile(Safe* s, int i) {
 	multiSafeFile.open(multiSafeFileName, std::ofstream::out | std::ofstream::app);
 	s->printMultiSafe(&multiSafeFile, i);

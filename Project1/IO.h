@@ -16,6 +16,8 @@ public:
 		multiSafeFile.close();
 	};
 
+	~IO(void) {};
+
 	void writeKeyFile(Safe* s);
 	vector<Safe*> readKeyFile();
 	void writeMultiSafeFile(Safe* s, int i);
