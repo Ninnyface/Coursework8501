@@ -92,6 +92,13 @@ void Safe::printMultiSafe(ofstream* file, int safeNumber) {
 	}
 }
 
+void Safe::printLockKey(ofstream* file) {
+	*file << "ROOT: " << root.x << " " << root.y << " " << root.z << " " << root.w << "\n";
+	for (int i = 0; i < nOfLocks; i++) {
+		*file << "LN" << i << ": " << locks.at(i)->getLockNumber().x << " " << locks.at(i)->getLockNumber().y << " " << locks.at(i)->getLockNumber().z << " " << locks.at(i)->getLockNumber().w << "\n";
+	}
+}
+
 //Checks whether or not the safe is a valid solution under certain conditions
 bool Safe::validSafe() {
 	

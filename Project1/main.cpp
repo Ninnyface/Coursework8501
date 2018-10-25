@@ -11,13 +11,12 @@ int main() {
 	
 	srand(time(NULL));
 	int validSolutions = 0;
-	IO* iO = new IO();
 	bool multiSafe = false;
 	bool validInput = false;
-	bool validOnly = false;
+	//bool validOnly = false;
 	int solutions;
 	char answer;
-	cout << "How many valid solutions would you like?" << "\n";
+	cout << "How many locked safes would you like?" << "\n";
 	while (!validInput) {
 		cin >> solutions;
 		if (!cin.fail()) {
@@ -31,8 +30,8 @@ int main() {
 		}
 	}
 	validInput = false;
-
-	cout << "Would you like to only output valid solutions? (y/n)" << "\n";
+	IO* iO = new IO(solutions);
+	/*cout << "Would you like to only output valid solutions? (y/n)" << "\n";
 	while (!validInput) {
 		cin >> answer;
 		if (answer == 'y') {
@@ -46,7 +45,7 @@ int main() {
 			cout << "Please answer either 'y' (yes) or 'n' (no)." << "\n";
 		}
 	}
-	validInput = false;
+	validInput = false;*/
 
 	cout << "Would you like to use BONUS MULTI_SAFE conditions? (y/n) \nWarning: this may increase the time to create solutions dramatically." << "\n";
 	while (!validInput) {
@@ -64,7 +63,7 @@ int main() {
 	}
 	validInput = false;
 
-	cout << "Creating key file..." << "\n";
+	cout << "Creating locked safe file..." << "\n";
 	while (validSolutions < solutions) {
 		Safe* s = new Safe();
 		s->setRoot();
@@ -73,24 +72,24 @@ int main() {
 		s->setPHF();
 		s->createLocks();
 		s->setMultiSafe(multiSafe);
-		if (!validOnly) {
-			iO->writeKeyFile(s);
-			if (s->validSafe()) {
-				validSolutions++;
-			}
+		//if (!validOnly) {
+		//	iO->writeKeyFile(s);
+		//	if (s->validSafe()) {
+		//		validSolutions++;
+		//	}
+		//}
+		//else {
+		if (s->validSafe()) {
+			iO->writeLockedSafeFile(s);
+			validSolutions++;
 		}
-		else {
-			if (s->validSafe()) {
-				iO->writeKeyFile(s);
-				validSolutions++;
-			}
-		}
+		//}
 		s->deleteLocks();
 		delete s;
 		s = NULL;
 	}
 	
-	cout << "Key file created." << "\n";
+	cout << "Locked safe file created." << "\n";
 	cout << "Creating multi-safe file..." << "\n";
 
 	vector<Safe*> safes;
@@ -98,6 +97,7 @@ int main() {
 	for (int i = 0; i < safes.size(); i++) {
 		safes.at(i)->setMultiSafe(multiSafe);
 		iO->writeMultiSafeFile(safes.at(i), i);
+
 		safes.at(i)->deleteLocks();
 		delete safes.at(i);
 		safes.at(i) = NULL;

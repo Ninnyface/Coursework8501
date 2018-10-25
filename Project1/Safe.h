@@ -32,6 +32,7 @@ public:
 	void deleteLocks();
 	void printSafe();
 	void printSafeKey(ofstream* file);
+	void printLockKey(ofstream* file);
 	void printMultiSafe(ofstream* file, int safeNumber);
 	bool validSafe();
 

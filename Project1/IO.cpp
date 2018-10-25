@@ -2,10 +2,74 @@
 
 using namespace std;
 
+void IO::writeLockedSafeFile(Safe* s) {
+	lockedFile.open(lockedFileName, ofstream::out | ofstream::app);
+	if (lockedFile.is_open()) {
+		s->printLockKey(&lockedFile);
+		lockedFile.close();
+	}
+	else {
+		cout << "Unable to access file: " << lockedFileName << "\n";
+	}
+}
+
+vector<vector<Vector4>> IO::readLockedFile() {
+	vector<vector<Vector4>> safes;
+	string line;
+	getline(keyFileIn, line);
+	lockedFileIn.open(lockedFileName, ofstream::in);
+	if (lockedFileIn.is_open()) {
+		while (getline(keyFileIn, line)) {
+			vector<Vector4> values;
+			string space = " ";
+			
+			int x, y, z, w;
+			int pos = 0;
+
+			string root = line.substr(6, line.length());
+			pos = root.find(space);
+			x = stoi(root.substr(0, pos));
+			root.erase(0, pos + space.length());
+			pos = root.find(space);
+			y = stoi(root.substr(0, pos));
+			root.erase(0, pos + space.length());
+			pos = root.find(space);
+			z = stoi(root.substr(0, pos));
+			root.erase(0, pos + space.length());
+			pos = root.find(space);
+			w = stoi(root.substr(0, pos));
+			values.push_back(Vector4(x,y,z,w));
+			line = "";
+
+			while (line.substr(0, 4) != "ROOT") {
+				pos = 0;
+				getline(keyFileIn, line);
+				string lockNumber = line.substr(5, line.length());
+				pos = lockNumber.find(space);
+				x = stoi(lockNumber.substr(0, pos));
+				lockNumber.erase(0, pos + space.length());
+				pos = lockNumber.find(space);
+				y = stoi(lockNumber.substr(0, pos));
+				lockNumber.erase(0, pos + space.length());
+				pos = lockNumber.find(space);
+				z = stoi(lockNumber.substr(0, pos));
+				lockNumber.erase(0, pos + space.length());
+				pos = lockNumber.find(space);
+				w = stoi(lockNumber.substr(0, pos));
+				values.push_back(Vector4(x, y, z, w));
+			}
+
+		}
+	}
+	else {
+		cout << "Unable to access file: " << lockedFileName << "\n";
+	}
+}
+
 //Method to write all information needed in the key file
 void IO::writeKeyFile(Safe* s) {
 
-	keyFile.open(keyFileName, std::ofstream::out | std::ofstream::app);
+	keyFile.open(keyFileName, ofstream::out | ofstream::app);
 	if (keyFile.is_open()) {
 		s->printSafeKey(&keyFile);
 		keyFile.close();
@@ -19,7 +83,7 @@ void IO::writeKeyFile(Safe* s) {
 vector<Safe*> IO::readKeyFile() {
 	vector<Safe*> safes;
 	string line;
-	keyFileIn.open(keyFileName, std::ofstream::in);
+	keyFileIn.open(keyFileName, ofstream::in);
 	if (keyFileIn.is_open()) {
 		while (getline(keyFileIn, line)) {
 			//As the structure of the key file is known, substrings can be obtained to retrieve the individual hash values
@@ -92,7 +156,7 @@ vector<Safe*> IO::readKeyFile() {
 
 //Method to validate solutions and write to the multi-safe file
 void IO::writeMultiSafeFile(Safe* s, int i) {
-	multiSafeFile.open(multiSafeFileName, std::ofstream::out | std::ofstream::app);
+	multiSafeFile.open(multiSafeFileName, ofstream::out | ofstream::app);
 	if (multiSafeFile.is_open()) {
 		s->printMultiSafe(&multiSafeFile, i);
 		multiSafeFile.close();
@@ -101,3 +165,4 @@ void IO::writeMultiSafeFile(Safe* s, int i) {
 		cout << "Unable to access file: " << multiSafeFileName << "\n";
 	}
 }
+
