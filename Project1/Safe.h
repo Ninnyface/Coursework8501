@@ -27,12 +27,13 @@ public:
 	void setLHF(int x, int y, int z, int w);
 	void setPHF();
 	void setPHF(int x, int y, int z, int w);
+	void setMultiSafe(bool multiSafe) { this->multiSafe = multiSafe; };
 	void createLocks();
 	void deleteLocks();
 	void printSafe();
 	void printSafeKey(ofstream* file);
 	void printMultiSafe(ofstream* file, int safeNumber);
-	bool validSafe(bool multiSafe);
+	bool validSafe();
 
 private:
 	int nOfLocks;

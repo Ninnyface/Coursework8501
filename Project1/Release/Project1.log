@@ -1,5 +1,5 @@
 ﻿  main.cpp
 c:\users\b5005129\github\coursework8501\project1\Vector4.h(6): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 main.cpp(12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-main.cpp(75): warning C4018: '<': signed/unsigned mismatch
-  Project1.vcxproj -> C:\Users\b5005129\visual studio 2017\Projects\8501Coursework\Release\Project1.exe
+main.cpp(100): warning C4018: '<': signed/unsigned mismatch
+  Project1.vcxproj -> C:\Users\b5005129\GitHub\Coursework8501\Project1\Release\Project1.exe

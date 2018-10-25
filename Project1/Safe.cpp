@@ -69,15 +69,17 @@ void Safe::printSafe() {
 
 //Outputs info to the key file
 void Safe::printSafeKey(ofstream* file) {
+	
 	*file << "ROOT " << root.x << root.y << root.z << root.w << "\n";
 	*file << "UHF " << UHF.x << "," << UHF.y << "," << UHF.z << "," << UHF.w << "\n";
 	*file << "LHF " << LHF.x << "," << LHF.y << "," << LHF.z << "," << LHF.w << "\n";
 	*file << "PHF " << PHF.x << "," << PHF.y << "," << PHF.z << "," << PHF.w << "\n";
+
 }
 
 //Outputs info to the multi safe file
 void Safe::printMultiSafe(ofstream* file, int safeNumber) {
-	if (this->validSafe(multiSafe)) {
+	if (this->validSafe()) {
 		*file << "NS" << safeNumber << " VALID" << "\n";
 	}
 	else {
@@ -91,8 +93,8 @@ void Safe::printMultiSafe(ofstream* file, int safeNumber) {
 }
 
 //Checks whether or not the safe is a valid solution under certain conditions
-bool Safe::validSafe(bool multiSafe) {
-	this->multiSafe = multiSafe;
+bool Safe::validSafe() {
+	
 	if (!multiSafe) {	
 		for (int i = 0; i < nOfLocks; i++) {
 			if (locks.at(i)->repeatingNumbers()) {

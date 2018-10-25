@@ -10,11 +10,11 @@ using namespace std;
 int main() {
 	
 	srand(time(NULL));
-	//int safesCreated = 0;
 	int validSolutions = 0;
 	IO* iO = new IO();
 	bool multiSafe = false;
 	bool validInput = false;
+	bool validOnly = false;
 	int solutions;
 	char answer;
 	cout << "How many valid solutions would you like?" << "\n";
@@ -32,7 +32,23 @@ int main() {
 	}
 	validInput = false;
 
-	cout << "Would you like to use BONUS MULTI_SAFE conditions? (y/n) \nWarning: this will increase the time to create solutions dramatically." << "\n";
+	cout << "Would you like to only output valid solutions? (y/n)" << "\n";
+	while (!validInput) {
+		cin >> answer;
+		if (answer == 'y') {
+			validOnly = true;
+			validInput = true;
+		}
+		else if (answer == 'n') {
+			validInput = true;
+		}
+		else {
+			cout << "Please answer either 'y' (yes) or 'n' (no)." << "\n";
+		}
+	}
+	validInput = false;
+
+	cout << "Would you like to use BONUS MULTI_SAFE conditions? (y/n) \nWarning: this may increase the time to create solutions dramatically." << "\n";
 	while (!validInput) {
 		cin >> answer;
 		if (answer == 'y') {
@@ -56,12 +72,19 @@ int main() {
 		s->setLHF();
 		s->setPHF();
 		s->createLocks();
-		iO->writeKeyFile(s);
-		if (s->validSafe(multiSafe)) {
-			validSolutions++;
+		s->setMultiSafe(multiSafe);
+		if (!validOnly) {
+			iO->writeKeyFile(s);
+			if (s->validSafe()) {
+				validSolutions++;
+			}
 		}
-		
-		//safesCreated++;
+		else {
+			if (s->validSafe()) {
+				iO->writeKeyFile(s);
+				validSolutions++;
+			}
+		}
 		s->deleteLocks();
 		delete s;
 		s = NULL;
@@ -73,6 +96,7 @@ int main() {
 	vector<Safe*> safes;
 	safes = iO->readKeyFile();
 	for (int i = 0; i < safes.size(); i++) {
+		safes.at(i)->setMultiSafe(multiSafe);
 		iO->writeMultiSafeFile(safes.at(i), i);
 		safes.at(i)->deleteLocks();
 		delete safes.at(i);

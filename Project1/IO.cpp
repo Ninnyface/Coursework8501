@@ -6,8 +6,13 @@ using namespace std;
 void IO::writeKeyFile(Safe* s) {
 
 	keyFile.open(keyFileName, std::ofstream::out | std::ofstream::app);
-	s->printSafeKey(&keyFile);
-	keyFile.close();
+	if (keyFile.is_open()) {
+		s->printSafeKey(&keyFile);
+		keyFile.close();
+	}
+	else {
+		cout << "Unable to access file: " << keyFileName << "\n";
+	}
 }
 
 //Method to read in the key file and add all of the data stored inside to a vector of safes
@@ -79,7 +84,7 @@ vector<Safe*> IO::readKeyFile() {
 		keyFileIn.close();
 	}
 	else {
-		cout << "Unable to access file." << "\n";
+		cout << "Unable to access file: " << keyFileName << "\n";
 	}
 
 	return safes;
@@ -88,6 +93,11 @@ vector<Safe*> IO::readKeyFile() {
 //Method to validate solutions and write to the multi-safe file
 void IO::writeMultiSafeFile(Safe* s, int i) {
 	multiSafeFile.open(multiSafeFileName, std::ofstream::out | std::ofstream::app);
-	s->printMultiSafe(&multiSafeFile, i);
-	multiSafeFile.close();
+	if (multiSafeFile.is_open()) {
+		s->printMultiSafe(&multiSafeFile, i);
+		multiSafeFile.close();
+	}
+	else {
+		cout << "Unable to access file: " << multiSafeFileName << "\n";
+	}
 }
