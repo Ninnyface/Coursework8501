@@ -112,20 +112,20 @@ bool Safe::validSafe(bool multiSafe) {
 
 			if (i > 0) {
 				if (locks.at(i)->sumCombination() <= locks.at(i - 1)->sumCombination()) {
-					cout << "sum is lower on the right" << "\n";
-					for (int j = 0; j < nOfLocks; j++) {
-						cout << "CN" << j << " " << locks.at(j)->getCombinationNumber().x << locks.at(j)->getCombinationNumber().y << locks.at(j)->getCombinationNumber().z << locks.at(j)->getCombinationNumber().w << "\n";
-					}
+					//cout << "sum is lower on the right" << "\n";
+					//for (int j = 0; j < nOfLocks; j++) {
+					//	cout << "CN" << j << " " << locks.at(j)->getCombinationNumber().x << locks.at(j)->getCombinationNumber().y << locks.at(j)->getCombinationNumber().z << locks.at(j)->getCombinationNumber().w << "\n";
+					//}
 					return false;
 				}
 			}
 		}
 
 		if (sum % 2 != 0) {
-			cout << "odd" << "\n";
-			for (int i = 0; i < nOfLocks; i++) {
-				cout << "CN" << i << " " << locks.at(i)->getCombinationNumber().x << locks.at(i)->getCombinationNumber().y << locks.at(i)->getCombinationNumber().z << locks.at(i)->getCombinationNumber().w;
-			}
+			//cout << "odd" << "\n";
+			//for (int i = 0; i < nOfLocks; i++) {
+			//	cout << "CN" << i << " " << locks.at(i)->getCombinationNumber().x << locks.at(i)->getCombinationNumber().y << locks.at(i)->getCombinationNumber().z << locks.at(i)->getCombinationNumber().w;
+			//}
 			return false;
 		}
 

@@ -27,12 +27,12 @@ int main() {
 		else {
 			cout << "Please enter an integer value." << "\n";
 			cin.clear();
-			cin.ignore();
+			cin.ignore(256, '\n');
 		}
 	}
 	validInput = false;
 
-	cout << "Would you like to use BONUS MULTI_SAFE conditions? (y/n)" << "\n";
+	cout << "Would you like to use BONUS MULTI_SAFE conditions? (y/n) \nWarning: this will increase the time to create solutions dramatically." << "\n";
 	while (!validInput) {
 		cin >> answer;
 		if (answer == 'y') {
@@ -48,6 +48,7 @@ int main() {
 	}
 	validInput = false;
 
+	cout << "Creating key file..." << "\n";
 	while (validSolutions < solutions) {
 		Safe* s = new Safe();
 		s->setRoot();
@@ -67,7 +68,8 @@ int main() {
 	}
 	
 	cout << "Key file created." << "\n";
-	
+	cout << "Creating multi-safe file..." << "\n";
+
 	vector<Safe*> safes;
 	safes = iO->readKeyFile();
 	for (int i = 0; i < safes.size(); i++) {
@@ -77,6 +79,7 @@ int main() {
 		safes.at(i) = NULL;
 	}
 
+	cout << "Multi-safe file created. Please enter any key to finish." << "\n";
 	safes.clear();
 
 	delete iO;
